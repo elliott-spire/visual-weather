@@ -620,6 +620,8 @@ function getAirColumnForecast(time_bundle, lat, lon) {
 
             var data = response.data;
 
+            console.log(data)
+
             // console.log('max_wind_speed_within_air_column', data);
 
             // hardcode speed units for custom application
@@ -638,6 +640,8 @@ function getAirColumnForecast(time_bundle, lat, lon) {
                     'Value': parse_speed(data[i].values.max_wind_speed_within_air_column, speedunits)
                 });
             }
+
+            console.log(max_wind_speed_within_air_column_vals)
             ////////////////////////////////////////////////
             //// Embed the Vega visualizations into the DOM
             ////////////////////////////////////////////////
@@ -656,8 +660,3 @@ function getAirColumnForecast(time_bundle, lat, lon) {
         });
     // end promise
 }
-
-// wait until the DOM is loaded before running this
-document.addEventListener('DOMContentLoaded', function() {
-    getPointForecast('medium_range_std_freq');
-})

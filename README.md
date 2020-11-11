@@ -2,15 +2,17 @@
 
 ### URL Parameters
 
+	token (required): Spire Weather API token
+
 	lat (required): latitude of point forecast
 
 	lon (required): longitude of point forecast
 
-	token (required): Spire Weather API token
-
 	name (optional): name of location
 
 	bundles (optional): "basic,maritime,renewable-energy" or a subset of the three (default = basic)
+
+	icao (optional): supersedes lat/lon/name/bundles parameters and uses the Optimized Point Forecast instead (can also specify WMO identifier rather than ICAO)
 
 	tempscale (optional): "C" for Celsius, "F" for Fahrenheit, "K" for Kelvin (default = Celsius)
 
