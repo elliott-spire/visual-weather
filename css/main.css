@@ -1,5 +1,5 @@
 body {
-	background-color: #22293d;
+	background-color: black; /*#22293d;*/
 	font-family: monospace;
 	color: #ffffff;
 }
@@ -8,7 +8,7 @@ canvas {
 }
 #forecast_info {
 	position: fixed;
-	background-color: #22293d;
+	background-color: black; /*#22293d;*/
 	top: 0;
 	left: 0;
 	padding: 10px;
@@ -50,7 +50,7 @@ canvas {
 	width: 180px;
 	height: 60px;
 	border-radius: 50px;
-	background-color: #22293d;
+	background-color: black; /*#22293d;*/
 }
 /* Cloud Ceiling table */
 #op_ceiling {

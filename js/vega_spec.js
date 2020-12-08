@@ -1,7 +1,7 @@
 function embed_vega_spec(vega_spec, element_id) {
 	// https://vega.github.io/vega/docs/config/
 	var theme = {
-		"background": "#22293d",
+		"background": "#000000", //"#22293d",
 		"title": {"color": "#fff"},
 		"style": {"guide-label": {"fill": "#fff"}, "guide-title": {"fill": "#fff"}},
 		"axis": {"domainColor": "#fff", "gridColor": "#888", "tickColor": "#fff"}
