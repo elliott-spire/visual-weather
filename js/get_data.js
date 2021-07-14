@@ -75,7 +75,7 @@ function getPointForecast(time_bundle) {
                 tempscale = 'F';
             } else {
                 unitsystem = 'metric';
-                precipunits = 'kg/m2';
+                precipunits = 'mm';
                 heightunits = 'm';
                 speedunits = 'm/s';
             }

@@ -36,11 +36,29 @@ function displayOptimizedPointData(data, icao, name) {
     var probability_of_precipitation_24hr = [];
 
     // check URL parameter to set the temperature scale
-    var tempscale = window.urlParams.get('tempscale');
+    var tempscale = urlParams.get('tempscale');
     if (tempscale == null) {
         tempscale = 'C'
     } else {
         tempscale = tempscale.toUpperCase();
+    }
+    var precipunits;
+    var heightunits;
+    var speedunits;
+    var unitsystem = urlParams.get('units');
+    if (unitsystem != null && unitsystem.toLowerCase() == 'imperial') {
+        unitsystem = 'imperial';
+        precipunits = 'in';
+        heightunits = 'ft';
+        speedunits = 'knots';
+        // specify Fahrenheit here as well
+        // so `tempscale` can be omitted
+        tempscale = 'F';
+    } else {
+        unitsystem = 'metric';
+        precipunits = 'mm';
+        heightunits = 'm';
+        speedunits = 'm/s';
     }
 
     // iterate through the API response data
@@ -316,7 +334,7 @@ function displayOptimizedPointData(data, icao, name) {
         // add the other data variable graphs to the DOM
         embed_vega_spec(
             build_vega_spec(
-                'Horizontal Visibility (m)',
+                'Horizontal Visibility (' + heightunits + ')',
                 { 'values': visibility },
                 null, // warn threshold value
                 null // alert threshold value
@@ -325,7 +343,7 @@ function displayOptimizedPointData(data, icao, name) {
         );
         embed_vega_spec(
             build_vega_spec(
-                'Wind Speed (m/s)',
+                'Wind Speed (' + speedunits + ')',
                 { 'values': wind_speed },
                 null, // warn threshold value
                 null // alert threshold value
@@ -334,7 +352,7 @@ function displayOptimizedPointData(data, icao, name) {
         );
         embed_vega_spec(
             build_vega_spec(
-                'Wind Directon (Degrees)',
+                'Wind Directon (degrees)',
                 { 'values': wind_direction },
                 null, // no alert
                 null // no alert
@@ -397,7 +415,7 @@ function displayOptimizedPointData(data, icao, name) {
         );
         embed_vega_spec(
             build_vega_spec(
-                'Eastward Wind Velocity (m/s)',
+                'Eastward Wind Velocity (' + speedunits + ')',
                 { 'values': eastward_wind_velocity },
                 null, // warn threshold value
                 null // alert threshold value
@@ -406,7 +424,7 @@ function displayOptimizedPointData(data, icao, name) {
         );
         embed_vega_spec(
             build_vega_spec(
-                'Northward Wind Velocity (m/s)',
+                'Northward Wind Velocity (' + speedunits + ')',
                 { 'values': northward_wind_velocity },
                 null, // warn threshold value
                 null // alert threshold value
@@ -433,7 +451,7 @@ function displayOptimizedPointData(data, icao, name) {
         );
         embed_vega_spec(
             build_vega_spec(
-                '1hr Precipitation Amount (mm)',
+                '1hr Precipitation Amount (' + precipunits + ')',
                 { 'values': precipitation_amount_1hr },
                 null, // warn threshold value
                 null // alert threshold value
@@ -442,7 +460,7 @@ function displayOptimizedPointData(data, icao, name) {
         );
         embed_vega_spec(
             build_vega_spec(
-                '3hr Precipitation Amount (mm)',
+                '3hr Precipitation Amount (' + precipunits + ')',
                 { 'values': precipitation_amount_3hr },
                 null, // warn threshold value
                 null // alert threshold value
@@ -451,7 +469,7 @@ function displayOptimizedPointData(data, icao, name) {
         );
         embed_vega_spec(
             build_vega_spec(
-                '6h Precipitation Amount (mm)',
+                '6h Precipitation Amount (' + precipunits + ')',
                 { 'values': precipitation_amount_6hr },
                 null, // warn threshold value
                 null // alert threshold value
