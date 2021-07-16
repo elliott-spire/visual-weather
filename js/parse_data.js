@@ -8,21 +8,26 @@ function parse_temperature(data, tempscale) {
     } else {
         temp = temp_kelvin - 273.15; // Kelvin to Celsius
     }
-    return temp;
+    return temp.toFixed(2);;
 }
 
 function parse_speed(data, units) {
     if (units == 'knots') {
-        data = data * 1.94384; // m/s to knots
+        data = data * 1.944; // m/s to knots
     }
-    return data;
+    return data.toFixed(2);;
 }
 
-function parse_height(data, units) {
+function parse_distance(data, units) {
     if (units == 'ft') {
-        data = data * 3.28084; // m to ft
+        data = data * 3.281; // m to ft
     }
-    return data;
+    return data.toFixed(2);;
+}
+
+function ft_to_miles(data) {
+    data = data / 5280.0;
+    return data.toFixed(2);
 }
 
 function parse_precipitation(data, units) {
@@ -32,9 +37,9 @@ function parse_precipitation(data, units) {
     if (units == 'imperial') {
         // kg/m2 = mm for liquid precipitation
         // so here we convert from mm to in
-        data = data * 0.0393701;
+        data = data / (25.4);
     }
-    return data;
+    return data.toFixed(2);;
 }
 
 // get wind (or ocean currents) speed from U and V velocity components

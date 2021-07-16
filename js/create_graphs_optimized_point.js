@@ -43,13 +43,13 @@ function displayOptimizedPointData(data, icao, name) {
         tempscale = tempscale.toUpperCase();
     }
     var precipunits;
-    var heightunits;
+    var distanceunits;
     var speedunits;
     var unitsystem = urlParams.get('units');
     if (unitsystem != null && unitsystem.toLowerCase() == 'imperial') {
         unitsystem = 'imperial';
         precipunits = 'in';
-        heightunits = 'ft';
+        distanceunits = 'ft';
         speedunits = 'knots';
         // specify Fahrenheit here as well
         // so `tempscale` can be omitted
@@ -57,7 +57,7 @@ function displayOptimizedPointData(data, icao, name) {
     } else {
         unitsystem = 'metric';
         precipunits = 'mm';
-        heightunits = 'm';
+        distanceunits = 'm';
         speedunits = 'm/s';
     }
 
@@ -82,7 +82,7 @@ function displayOptimizedPointData(data, icao, name) {
         if (vis != undefined) {
             visibility.push({
                 'Time': valid_time_vega_format,
-                'Value': vis
+                'Value': parse_distance(vis, distanceunits)
             });
         }
 
@@ -90,7 +90,7 @@ function displayOptimizedPointData(data, icao, name) {
         if (ws != undefined) {
             wind_speed.push({
                 'Time': valid_time_vega_format,
-                'Value': ws
+                'Value': parse_speed(ws, speedunits)
             });
         }
 
@@ -154,7 +154,7 @@ function displayOptimizedPointData(data, icao, name) {
         if (e_wv != undefined) {
             eastward_wind_velocity.push({
                 'Time': valid_time_vega_format,
-                'Value': e_wv
+                'Value': parse_speed(e_wv, speedunits)
             });
         }
 
@@ -162,7 +162,7 @@ function displayOptimizedPointData(data, icao, name) {
         if (n_wv != undefined) {
             northward_wind_velocity.push({
                 'Time': valid_time_vega_format,
-                'Value': n_wv
+                'Value': parse_speed(n_wv, speedunits)
             });
         }
 
@@ -186,7 +186,7 @@ function displayOptimizedPointData(data, icao, name) {
         if (pa_1 != undefined) {
             precipitation_amount_1hr.push({
                 'Time': valid_time_vega_format,
-                'Value': pa_1
+                'Value': parse_precipitation(pa_1, unitsystem)
             });
         }
 
@@ -194,7 +194,7 @@ function displayOptimizedPointData(data, icao, name) {
         if (pa_3 != undefined) {
             precipitation_amount_3hr.push({
                 'Time': valid_time_vega_format,
-                'Value': pa_3
+                'Value': parse_precipitation(pa_3, unitsystem)
             });
         }
 
@@ -202,7 +202,7 @@ function displayOptimizedPointData(data, icao, name) {
         if (pa_6 != undefined) {
             precipitation_amount_6hr.push({
                 'Time': valid_time_vega_format,
-                'Value': pa_6
+                'Value': parse_precipitation(pa_6, unitsystem)
             });
         }
 
@@ -298,6 +298,35 @@ function displayOptimizedPointData(data, icao, name) {
 
     ////////////////////////////////////////////////
     ////////////////////////////////////////////////
+    //// Configure the Color Thresholding for Graphs
+    ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+
+    CUSTOM_THRESHOLDS = false;
+
+    NO_COLOR_THRESHOLDS = {
+        'c1': null, // warn threshold value
+        'c2': null, // alert threshold value
+        'c3': null  // big alert threshold value
+    }
+
+    if (fx_airports.indexOf(icao) > -1) {
+        // set flag to indicate custom thresholds
+        CUSTOM_THRESHOLDS = true;
+        // get the location-specific thresholds
+        var thresholds = fx_thresholds[icao];
+        // parse out the individual thresholds
+        var wind_speed_thresholds = fx_wind_speed_thresholds;
+        var visibility_thresholds = fx_visibility_thresholds;
+        var ceiling_thresholds = thresholds['ceiling'];
+        var precip_3hr_thresholds = thresholds['precipitation_amount_3hr'];
+        var precip_6hr_thresholds = thresholds['precipitation_amount_6hr'];
+        var max_temp_thresholds = thresholds['max_temp'];
+        var min_temp_thresholds = thresholds['min_temp'];
+    }
+
+    ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
     //// Embed the Vega visualizations into the DOM
     ////////////////////////////////////////////////
     ////////////////////////////////////////////////
@@ -336,10 +365,9 @@ function displayOptimizedPointData(data, icao, name) {
         // add the other data variable graphs to the DOM
         embed_vega_spec(
             build_vega_spec(
-                'Horizontal Visibility (' + heightunits + ')',
+                'Horizontal Visibility (' + distanceunits + ')',
                 { 'values': visibility },
-                null, // warn threshold value
-                null // alert threshold value
+                (CUSTOM_THRESHOLDS ? visibility_thresholds : NO_COLOR_THRESHOLDS)
             ),
             '#op_visibility'
         );
@@ -347,8 +375,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 'Wind Speed (' + speedunits + ')',
                 { 'values': wind_speed },
-                null, // warn threshold value
-                null // alert threshold value
+                (CUSTOM_THRESHOLDS ? wind_speed_thresholds : NO_COLOR_THRESHOLDS)
             ),
             '#op_wind_speed'
         );
@@ -356,8 +383,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 'Wind Directon (degrees)',
                 { 'values': wind_direction },
-                null, // no alert
-                null // no alert
+                NO_COLOR_THRESHOLDS,
             ),
             '#op_wind_direction'
         );
@@ -365,8 +391,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 'Air Temperature (' + tempscale + ')',
                 { 'values': air_temperature },
-                null, // warn threshold value
-                null // alert threshold value
+                NO_COLOR_THRESHOLDS,
             ),
             '#op_air_temp'
         );
@@ -374,8 +399,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 'Relative Humidity (%)',
                 { 'values': relative_humidity },
-                null, // warn threshold value
-                null // alert threshold value
+                NO_COLOR_THRESHOLDS,
             ),
             '#op_rel_hum'
         );
@@ -383,8 +407,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 'Total Cloud Cover (%)',
                 { 'values': total_cloud_cover },
-                null, // warn threshold value
-                null // alert threshold value
+                NO_COLOR_THRESHOLDS,
             ),
             '#op_cloud_cover'
         );
@@ -392,8 +415,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 'Probability of Fog (%)',
                 { 'values': probability_of_fog },
-                null, // warn threshold value
-                null // alert threshold value
+                NO_COLOR_THRESHOLDS,
             ),
             '#op_prob_fog'
         );
@@ -401,8 +423,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 'Surface Air Pressure (Pa)',
                 { 'values': surface_air_pressure },
-                null, // no alert
-                null // no alert
+                NO_COLOR_THRESHOLDS,
             ),
             '#op_surface_air_press'
         );
@@ -410,35 +431,31 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 'Dew Point Temperature (' + tempscale + ')',
                 { 'values': dew_point_temperature },
-                null, // warn threshold value
-                null // alert threshold value
+                NO_COLOR_THRESHOLDS,
             ),
             '#op_dew_point_temp'
         );
-        embed_vega_spec(
-            build_vega_spec(
-                'Eastward Wind Velocity (' + speedunits + ')',
-                { 'values': eastward_wind_velocity },
-                null, // warn threshold value
-                null // alert threshold value
-            ),
-            '#op_east_wind_vel'
-        );
-        embed_vega_spec(
-            build_vega_spec(
-                'Northward Wind Velocity (' + speedunits + ')',
-                { 'values': northward_wind_velocity },
-                null, // warn threshold value
-                null // alert threshold value
-            ),
-            '#op_north_wind_vel'
-        );
+        // embed_vega_spec(
+        //     build_vega_spec(
+        //         'Eastward Wind Velocity (' + speedunits + ')',
+        //         { 'values': eastward_wind_velocity },
+        //         NO_COLOR_THRESHOLDS,
+        //     ),
+        //     '#op_east_wind_vel'
+        // );
+        // embed_vega_spec(
+        //     build_vega_spec(
+        //         'Northward Wind Velocity (' + speedunits + ')',
+        //         { 'values': northward_wind_velocity },
+        //         NO_COLOR_THRESHOLDS,
+        //     ),
+        //     '#op_north_wind_vel'
+        // );
         embed_vega_spec(
             build_vega_spec(
                 '24hr Max. Temperature UTC (' + tempscale + ')',
                 { 'values': max_temperature_utc_day },
-                null, // warn threshold value
-                null // alert threshold value
+                (CUSTOM_THRESHOLDS ? max_temp_thresholds : NO_COLOR_THRESHOLDS)
             ),
             '#op_max_temp_utc'
         );
@@ -446,8 +463,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 '24hr Min. Temperature UTC (' + tempscale + ')',
                 { 'values': min_temperature_utc_day },
-                null, // warn threshold value
-                null // alert threshold value
+                (CUSTOM_THRESHOLDS ? min_temp_thresholds : NO_COLOR_THRESHOLDS)
             ),
             '#op_min_temp_utc'
         );
@@ -455,8 +471,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 '1hr Precipitation Amount (' + precipunits + ')',
                 { 'values': precipitation_amount_1hr },
-                null, // warn threshold value
-                null // alert threshold value
+                NO_COLOR_THRESHOLDS,
             ),
             '#op_precip_amt_1'
         );
@@ -464,8 +479,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 '3hr Precipitation Amount (' + precipunits + ')',
                 { 'values': precipitation_amount_3hr },
-                null, // warn threshold value
-                null // alert threshold value
+                (CUSTOM_THRESHOLDS ? precip_3hr_thresholds : NO_COLOR_THRESHOLDS),
             ),
             '#op_precip_amt_3'
         );
@@ -473,8 +487,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 '6h Precipitation Amount (' + precipunits + ')',
                 { 'values': precipitation_amount_6hr },
-                null, // warn threshold value
-                null // alert threshold value
+                (CUSTOM_THRESHOLDS ? precip_6hr_thresholds : NO_COLOR_THRESHOLDS),
             ),
             '#op_precip_amt_6'
         );
@@ -482,8 +495,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 '24hr Max. Temperature Local Time (' + tempscale + ')',
                 { 'values': max_temperature_local_day },
-                null, // warn threshold value
-                null, // alert threshold value
+                (CUSTOM_THRESHOLDS ? max_temp_thresholds : NO_COLOR_THRESHOLDS),
                 'Local' // specify timezone
             ),
             '#op_max_temp_local'
@@ -492,8 +504,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 '24hr Min. Temperature Local Time (' + tempscale + ')',
                 { 'values': min_temperature_local_day },
-                null, // warn threshold value
-                null, // alert threshold value
+                (CUSTOM_THRESHOLDS ? min_temp_thresholds : NO_COLOR_THRESHOLDS),
                 'Local' // specify timezone
             ),
             '#op_min_temp_local'
@@ -502,8 +513,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 'Air Pressure at Mean Sea Level (Pa)',
                 { 'values': air_pressure_at_mean_sea_level },
-                null, // no alert
-                null // no alert
+                NO_COLOR_THRESHOLDS,
             ),
             '#op_air_press_sea_level'
         );
@@ -511,8 +521,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 'Probability of Thunderstorm (%)',
                 { 'values': probability_of_thunderstorm },
-                null, // warn threshold value
-                null // alert threshold value
+                NO_COLOR_THRESHOLDS,
             ),
             '#op_prob_thunder'
         );
@@ -520,8 +529,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 'Conditional Probability of Ice (%)',
                 { 'values': conditional_probability_of_ice },
-                null, // warn threshold value
-                null // alert threshold value
+                NO_COLOR_THRESHOLDS,
             ),
             '#op_prob_ice'
         );
@@ -529,8 +537,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 'Conditional Probability of Rain (%)',
                 { 'values': conditional_probability_of_rain },
-                null, // warn threshold value
-                null // alert threshold value
+                NO_COLOR_THRESHOLDS,
             ),
             '#op_prob_rain'
         );
@@ -538,8 +545,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 'Conditional Probability of Snow (%)',
                 { 'values': conditional_probability_of_snow },
-                null, // warn threshold value
-                null // alert threshold value
+                NO_COLOR_THRESHOLDS,
             ),
             '#op_prob_snow'
         );
@@ -547,8 +553,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 '1hr Probability of Precipitation (%)',
                 { 'values': probability_of_precipitation_1hr },
-                null, // warn threshold value
-                null // alert threshold value
+                NO_COLOR_THRESHOLDS,
             ),
             '#op_prob_precip_1'
         );
@@ -556,8 +561,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 '3hr Probability of Precipitation (%)',
                 { 'values': probability_of_precipitation_3hr },
-                null, // warn threshold value
-                null // alert threshold value
+                NO_COLOR_THRESHOLDS,
             ),
             '#op_prob_precip_3'
         );
@@ -565,8 +569,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 '6hr Probability of Precipitation (%)',
                 { 'values': probability_of_precipitation_6hr },
-                null, // warn threshold value
-                null // alert threshold value
+                NO_COLOR_THRESHOLDS,
             ),
             '#op_prob_precip_6'
         );
@@ -574,8 +577,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 '24hr Probability of Precipitation (%)',
                 { 'values': probability_of_precipitation_24hr },
-                null, // warn threshold value
-                null // alert threshold value
+                NO_COLOR_THRESHOLDS,
             ),
             '#op_prob_precip_24'
         );
