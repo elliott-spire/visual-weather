@@ -53,38 +53,51 @@ function parse_precipitation(data, units) {
 }
 
 function parse_cloud_ceiling(data, units) {
-
-    ft = [100, 500, 1000, 3000, 5500, 12000]
-    values = {
-        "0-30 m": {
-            "min": 0,
-            "max": 100 //   98.43   // 30 * 3.281
-        },
-        "30-60 m": {
-            "min": 100,
-            "max": 200 //   196.86
-        },
-        "60-152 m": {
-            "min": 200,
-            "max": 500 //   498.712
-        },
-        "152-304 m": {
-            "min": 500,
-            "max": 1000 //  997.424
-        },
-        "304-944 m": {
-            "min": 1000,
-            "max": 3100 //  3097.264
-        },
-        "944-1676 m": {
-            "min": 3100,
-            "max": 5500 //  5498.956
-        },
-        "1676- m": {
-            "min": 5500,
-            "max": 12000 //  ? ? ?
-        }
+    if (data == 'none') {
+        return data;
     }
+    if (units == 'ft') {
+        // var ft = [100, 500, 1000, 3000, 5500, 12000]
+        var values = {
+            "0-30 m": {
+                "min": 0,
+                "max": 100 //   98.43   // 30 * 3.281
+            },
+            "30-60 m": {
+                "min": 100,
+                "max": 200 //   196.86
+            },
+            "60-152 m": {
+                "min": 200,
+                "max": 500 //   498.712
+            },
+            "152-304 m": {
+                "min": 500,
+                "max": 1000 //  997.424
+            },
+            "304-944 m": {
+                "min": 1000,
+                "max": 3100 //  3097.264
+            },
+            "944-1676 m": {
+                "min": 3100,
+                "max": 5500 //  5498.956
+            },
+            // "1676- m": {
+            //     "min": 5500,
+            //     "max": 12000 //  ? ? ?
+            // }
+        }
+        if (values[data]) {
+            var min = values[data]["min"];
+            var max = values[data]["max"];
+        } else {
+            var min = 5500;
+            var max = 12000;
+        }
+        data = String(min) + '-' + String(max) + ' ft';
+    }
+    return data;
 }
 
 // get wind (or ocean currents) speed from U and V velocity components

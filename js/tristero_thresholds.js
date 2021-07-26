@@ -22,7 +22,8 @@ var fx_thresholds = {
 		'ceiling': {
 			'c3': 300,
 			'c2': 800,
-			'c1': 1500
+			'c1': 1500,
+			'minimum_thresholds': true
 		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 2,
@@ -50,7 +51,8 @@ var fx_thresholds = {
 		'ceiling': {
 			'c3': 200,
 			'c2': 500,
-			'c1': 1000
+			'c1': 1000,
+			'minimum_thresholds': true
 		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 2,
@@ -78,7 +80,8 @@ var fx_thresholds = {
 		'ceiling': {
 			'c3': 200,
 			'c2': 500,
-			'c1': 1000
+			'c1': 1000,
+			'minimum_thresholds': true
 		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 2,
@@ -106,7 +109,8 @@ var fx_thresholds = {
 		'ceiling': {
 			'c3': 200,
 			'c2': 500,
-			'c1': 1000
+			'c1': 1000,
+			'minimum_thresholds': true
 		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 2,
@@ -134,7 +138,8 @@ var fx_thresholds = {
 		'ceiling': {
 			'c3': 200,
 			'c2': 500,
-			'c1': 1000
+			'c1': 1000,
+			'minimum_thresholds': true
 		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 1,
@@ -162,7 +167,8 @@ var fx_thresholds = {
 		'ceiling': {
 			'c3': 200,
 			'c2': 500,
-			'c1': 1000
+			'c1': 1000,
+			'minimum_thresholds': true
 		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 2,
@@ -190,7 +196,8 @@ var fx_thresholds = {
 		'ceiling': {
 			'c3': 200,
 			'c2': 500,
-			'c1': 1000
+			'c1': 1000,
+			'minimum_thresholds': true
 		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 1,
@@ -218,7 +225,8 @@ var fx_thresholds = {
 		'ceiling': {
 			'c3': 200,
 			'c2': 500,
-			'c1': 1000
+			'c1': 1000,
+			'minimum_thresholds': true
 		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 1,
@@ -246,7 +254,8 @@ var fx_thresholds = {
 		'ceiling': {
 			'c3': 200,
 			'c2': 500,
-			'c1': 1000
+			'c1': 1000,
+			'minimum_thresholds': true
 		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 1,
@@ -274,7 +283,8 @@ var fx_thresholds = {
 		'ceiling': {
 			'c3': 200,
 			'c2': 500,
-			'c1': 1000
+			'c1': 1000,
+			'minimum_thresholds': true
 		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 2,
@@ -302,7 +312,8 @@ var fx_thresholds = {
 		'ceiling': {
 			'c3': 200,
 			'c2': 500,
-			'c1': 1000
+			'c1': 1000,
+			'minimum_thresholds': true
 		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 2,
@@ -330,7 +341,8 @@ var fx_thresholds = {
 		'ceiling': {
 			'c3': 200,
 			'c2': 500,
-			'c1': 1000
+			'c1': 1000,
+			'minimum_thresholds': true
 		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 2,

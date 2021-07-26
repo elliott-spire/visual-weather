@@ -80,7 +80,7 @@ function displayOptimizedPointData(data, icao, name) {
         if (ceil != undefined) {
             ceiling.push({
                 'Time': valid_time_vega_format,
-                'Value': parse_cloud_ceiling(ceil)
+                'Value': parse_cloud_ceiling(ceil, distanceunits)
             });
         }
 
@@ -324,7 +324,7 @@ function displayOptimizedPointData(data, icao, name) {
         // parse out the individual thresholds
         var wind_speed_thresholds = fx_wind_speed_thresholds;
         var visibility_thresholds = fx_visibility_thresholds;
-        var ceiling_thresholds = thresholds['ceiling'];
+        var ceiling_thresholds = thresholds['ceiling']; // TODO
         var precip_3hr_thresholds = thresholds['precipitation_amount_3hr'];
         var precip_6hr_thresholds = thresholds['precipitation_amount_6hr'];
         var max_temp_thresholds = thresholds['max_temp'];
@@ -348,7 +348,7 @@ function displayOptimizedPointData(data, icao, name) {
             var time = document.createElement('th');
             var value = document.createElement('th');
             time.innerHTML = 'Time<br>(UTC)';
-            value.innerHTML = 'Cloud Ceiling<br>(Range in Meters)';
+            value.innerHTML = 'Cloud Ceiling<br>(Range)';
             headers.appendChild(time);
             headers.appendChild(value);
             table.appendChild(headers);
