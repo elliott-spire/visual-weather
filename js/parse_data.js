@@ -8,25 +8,35 @@ function parse_temperature(data, tempscale) {
     } else {
         temp = temp_kelvin - 273.15; // Kelvin to Celsius
     }
-    return temp.toFixed(2);;
+    return temp.toFixed(2);
 }
 
 function parse_speed(data, units) {
     if (units == 'knots') {
         data = data * 1.944; // m/s to knots
     }
-    return data.toFixed(2);;
+    return data.toFixed(2);
 }
 
 function parse_distance(data, units) {
     if (units == 'ft') {
         data = data * 3.281; // m to ft
     }
-    return data.toFixed(2);;
+    return data.toFixed(2);
 }
 
-function ft_to_miles(data) {
-    data = data / 5280.0;
+function parse_visibility(data, units) {
+    if (units == 'miles') {
+        data = data * 3.281; // m to ft
+        data = data / 5280.0; // ft to miles
+    }
+    return data.toFixed(2);
+}
+
+function parse_pressure(data, units) {
+    if (units == 'Hg') {
+        data = data / 3386.0; // Pa to Hg
+    }
     return data.toFixed(2);
 }
 
@@ -39,7 +49,42 @@ function parse_precipitation(data, units) {
         // so here we convert from mm to in
         data = data / (25.4);
     }
-    return data.toFixed(2);;
+    return data.toFixed(2);
+}
+
+function parse_cloud_ceiling(data, units) {
+
+    ft = [100, 500, 1000, 3000, 5500, 12000]
+    values = {
+        "0-30 m": {
+            "min": 0,
+            "max": 100 //   98.43   // 30 * 3.281
+        },
+        "30-60 m": {
+            "min": 100,
+            "max": 200 //   196.86
+        },
+        "60-152 m": {
+            "min": 200,
+            "max": 500 //   498.712
+        },
+        "152-304 m": {
+            "min": 500,
+            "max": 1000 //  997.424
+        },
+        "304-944 m": {
+            "min": 1000,
+            "max": 3100 //  3097.264
+        },
+        "944-1676 m": {
+            "min": 3100,
+            "max": 5500 //  5498.956
+        },
+        "1676- m": {
+            "min": 5500,
+            "max": 12000 //  ? ? ?
+        }
+    }
 }
 
 // get wind (or ocean currents) speed from U and V velocity components

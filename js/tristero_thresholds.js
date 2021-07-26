@@ -11,9 +11,9 @@ var fx_wind_speed_thresholds = {
 	'c1': 25
 }
 var fx_visibility_thresholds = {
-	'c3': 2640, // 0.5 SM
-	'c2': 5280, // 1 SM (mile) = 5280 feet
-	'c1': 10560, // 2 SM
+	'c3': 0.5, // miles     // 2640 ft
+	'c2': 1.0,              // 5280 ft
+	'c1': 2.0,              // 3500 ft
 	'minimum_thresholds': true
 }
 // distinct thresholds

@@ -44,13 +44,17 @@ function displayOptimizedPointData(data, icao, name) {
     }
     var precipunits;
     var distanceunits;
+    var visunits;
     var speedunits;
+    var pressureunits;
     var unitsystem = urlParams.get('units');
     if (unitsystem != null && unitsystem.toLowerCase() == 'imperial') {
         unitsystem = 'imperial';
         precipunits = 'in';
         distanceunits = 'ft';
+        visunits = 'miles';
         speedunits = 'knots';
+        pressureunits = 'Hg';
         // specify Fahrenheit here as well
         // so `tempscale` can be omitted
         tempscale = 'F';
@@ -58,7 +62,9 @@ function displayOptimizedPointData(data, icao, name) {
         unitsystem = 'metric';
         precipunits = 'mm';
         distanceunits = 'm';
+        visunits = 'm';
         speedunits = 'm/s';
+        pressureunits = 'Pa';
     }
 
     // iterate through the API response data
@@ -74,7 +80,7 @@ function displayOptimizedPointData(data, icao, name) {
         if (ceil != undefined) {
             ceiling.push({
                 'Time': valid_time_vega_format,
-                'Value': ceil
+                'Value': parse_cloud_ceiling(ceil)
             });
         }
 
@@ -82,7 +88,7 @@ function displayOptimizedPointData(data, icao, name) {
         if (vis != undefined) {
             visibility.push({
                 'Time': valid_time_vega_format,
-                'Value': parse_distance(vis, distanceunits)
+                'Value': parse_visibility(vis, visunits)
             });
         }
 
@@ -138,7 +144,7 @@ function displayOptimizedPointData(data, icao, name) {
         if (sap != undefined) {
             surface_air_pressure.push({
                 'Time': valid_time_vega_format,
-                'Value': sap
+                'Value': parse_pressure(sap, pressureunits)
             });
         }
 
@@ -226,7 +232,7 @@ function displayOptimizedPointData(data, icao, name) {
         if (air_press_msl != undefined) {
             air_pressure_at_mean_sea_level.push({
                 'Time': valid_time_vega_format,
-                'Value': air_press_msl
+                'Value': parse_pressure(air_press_msl, pressureunits)
             });
         }
 
@@ -365,7 +371,7 @@ function displayOptimizedPointData(data, icao, name) {
         // add the other data variable graphs to the DOM
         embed_vega_spec(
             build_vega_spec(
-                'Horizontal Visibility (' + distanceunits + ')',
+                'Horizontal Visibility (' + visunits + ')',
                 { 'values': visibility },
                 (CUSTOM_THRESHOLDS ? visibility_thresholds : NO_COLOR_THRESHOLDS)
             ),
@@ -391,7 +397,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 'Air Temperature (' + tempscale + ')',
                 { 'values': air_temperature },
-                NO_COLOR_THRESHOLDS,
+                (CUSTOM_THRESHOLDS ? max_temp_thresholds : NO_COLOR_THRESHOLDS),
             ),
             '#op_air_temp'
         );
@@ -421,7 +427,7 @@ function displayOptimizedPointData(data, icao, name) {
         );
         embed_vega_spec(
             build_vega_spec(
-                'Surface Air Pressure (Pa)',
+                'Surface Air Pressure (' + pressureunits + ')',
                 { 'values': surface_air_pressure },
                 NO_COLOR_THRESHOLDS,
             ),
@@ -511,7 +517,7 @@ function displayOptimizedPointData(data, icao, name) {
         );
         embed_vega_spec(
             build_vega_spec(
-                'Air Pressure at Mean Sea Level (Pa)',
+                'Air Pressure at Mean Sea Level (' + pressureunits + ')',
                 { 'values': air_pressure_at_mean_sea_level },
                 NO_COLOR_THRESHOLDS,
             ),
