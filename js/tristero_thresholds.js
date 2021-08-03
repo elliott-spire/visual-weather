@@ -16,6 +16,17 @@ var fx_visibility_thresholds = {
 	'c1': 2.0,              // 3500 ft
 	'minimum_thresholds': true
 }
+var fx_cloud_ceiling_thresholds = {
+    "0-30 m": "red-ceiling",
+    "30-60 m": "red-ceiling",
+    "60-152 m": "orange-ceiling",
+    "152-304 m": "yellow-ceiling",
+    "304-944 m": "",
+    "944-1676 m": "",
+    "none": "",
+	// "1676-???? m": "",
+	// "none": "",
+}
 // distinct thresholds
 var fx_thresholds = {
 	'KMEM': {

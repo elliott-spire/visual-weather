@@ -83,10 +83,7 @@ function parse_cloud_ceiling(data, units) {
                 "min": 3100,
                 "max": 5500 //  5498.956
             },
-            // "1676- m": {
-            //     "min": 5500,
-            //     "max": 12000 //  ? ? ?
-            // }
+            // ">1676- m": "none" // no ceiling
         }
         if (values[data]) {
             var min = values[data]["min"];

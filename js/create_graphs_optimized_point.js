@@ -80,7 +80,7 @@ function displayOptimizedPointData(data, icao, name) {
         if (ceil != undefined) {
             ceiling.push({
                 'Time': valid_time_vega_format,
-                'Value': parse_cloud_ceiling(ceil, distanceunits)
+                'Value': ceil
             });
         }
 
@@ -324,7 +324,7 @@ function displayOptimizedPointData(data, icao, name) {
         // parse out the individual thresholds
         var wind_speed_thresholds = fx_wind_speed_thresholds;
         var visibility_thresholds = fx_visibility_thresholds;
-        var ceiling_thresholds = thresholds['ceiling']; // TODO
+        var ceiling_thresholds = fx_cloud_ceiling_thresholds;
         var precip_3hr_thresholds = thresholds['precipitation_amount_3hr'];
         var precip_6hr_thresholds = thresholds['precipitation_amount_6hr'];
         var max_temp_thresholds = thresholds['max_temp'];
@@ -355,10 +355,15 @@ function displayOptimizedPointData(data, icao, name) {
             for (var i=0; i < ceiling.length; i++) {
                 var data = ceiling[i];
                 var row = document.createElement('tr');
+                var value = data['Value'];
+                var color = ceiling_thresholds[value];
                 var t = document.createElement('td');
+                t.className = color;
                 var v = document.createElement('td');
+                v.className = color;
                 t.innerHTML = data['Time'];
-                v.innerHTML = data['Value'];
+                value = parse_cloud_ceiling(value, distanceunits);
+                v.innerHTML = value;
                 row.appendChild(t);
                 row.appendChild(v);
                 table.appendChild(row);

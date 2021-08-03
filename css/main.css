@@ -64,9 +64,6 @@ canvas {
 	font-size: 120%;
 	background-color: rgba(10,50,100,0.9);
 }
-#op_ceiling td {
-	background-color: rgba(25,75,140,0.9);
-}
 #op_ceiling table,
 #op_ceiling th,
 #op_ceiling td {
@@ -74,4 +71,22 @@ canvas {
 	text-align: center;
 	padding: 20px;
 	color: white;
+}
+#op_ceiling td {
+	background-color: rgba(25,75,140,0.9);
+}
+#op_ceiling .yellow-ceiling {
+	background-color: #feff03; /*yellow*/
+	color: black;
+	font-weight: bold;
+}
+#op_ceiling .orange-ceiling {
+	background-color: #ff9701; /*orange*/
+	color: black;
+	font-weight: bold;
+}
+#op_ceiling .red-ceiling {
+	background-color: #ff0102; /*red*/
+	color: black;
+	font-weight: bold;
 }
