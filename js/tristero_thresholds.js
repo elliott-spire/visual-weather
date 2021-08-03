@@ -17,6 +17,13 @@ var fx_visibility_thresholds = {
 	'minimum_thresholds': true
 }
 var fx_cloud_ceiling_thresholds = {
+	// 0-100 ft – Red
+	// 100-200 ft – Red
+	// 200-500 ft – Orange
+	// 500-1000 ft – Yellow
+	// 1000-3100 ft – None
+	// 3100-5500 ft – None
+	// "no ceiling" – None
     "0-30 m": "red-ceiling",
     "30-60 m": "red-ceiling",
     "60-152 m": "orange-ceiling",
@@ -24,8 +31,6 @@ var fx_cloud_ceiling_thresholds = {
     "304-944 m": "",
     "944-1676 m": "",
     "none": "",
-	// "1676-???? m": "",
-	// "none": "",
 }
 // distinct thresholds
 var fx_thresholds = {
