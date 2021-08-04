@@ -324,6 +324,7 @@ function displayOptimizedPointData(data, icao, name) {
         // parse out the individual thresholds
         var wind_speed_thresholds = fx_wind_speed_thresholds;
         var visibility_thresholds = fx_visibility_thresholds;
+        var rel_hum_thresholds = fx_rel_hum_thresholds;
         var ceiling_thresholds = fx_cloud_ceiling_thresholds;
         var precip_3hr_thresholds = thresholds['precipitation_amount_3hr'];
         var precip_6hr_thresholds = thresholds['precipitation_amount_6hr'];
@@ -373,6 +374,43 @@ function displayOptimizedPointData(data, icao, name) {
             ceiling_div.appendChild(table);
             ceiling_div.style.display = 'block';
         }
+        // hide 24hr values for silent tristero
+        if (urlParams.get('version') != 'fx') {
+            embed_vega_spec(
+                build_vega_spec(
+                    '24hr Max. Temperature UTC (' + tempscale + ')',
+                    { 'values': max_temperature_utc_day },
+                    (CUSTOM_THRESHOLDS ? max_temp_thresholds : NO_COLOR_THRESHOLDS)
+                ),
+                '#op_max_temp_utc'
+            );
+            embed_vega_spec(
+                build_vega_spec(
+                    '24hr Min. Temperature UTC (' + tempscale + ')',
+                    { 'values': min_temperature_utc_day },
+                    (CUSTOM_THRESHOLDS ? min_temp_thresholds : NO_COLOR_THRESHOLDS)
+                ),
+                '#op_min_temp_utc'
+            );
+            embed_vega_spec(
+                build_vega_spec(
+                    '24hr Max. Temperature Local Time (' + tempscale + ')',
+                    { 'values': max_temperature_local_day },
+                    (CUSTOM_THRESHOLDS ? max_temp_thresholds : NO_COLOR_THRESHOLDS),
+                    'Local' // specify timezone
+                ),
+                '#op_max_temp_local'
+            );
+            embed_vega_spec(
+                build_vega_spec(
+                    '24hr Min. Temperature Local Time (' + tempscale + ')',
+                    { 'values': min_temperature_local_day },
+                    (CUSTOM_THRESHOLDS ? min_temp_thresholds : NO_COLOR_THRESHOLDS),
+                    'Local' // specify timezone
+                ),
+                '#op_min_temp_local'
+            );
+        }
         // add the other data variable graphs to the DOM
         embed_vega_spec(
             build_vega_spec(
@@ -410,7 +448,7 @@ function displayOptimizedPointData(data, icao, name) {
             build_vega_spec(
                 'Relative Humidity (%)',
                 { 'values': relative_humidity },
-                NO_COLOR_THRESHOLDS,
+                (CUSTOM_THRESHOLDS ? rel_hum_thresholds : NO_COLOR_THRESHOLDS),
             ),
             '#op_rel_hum'
         );
@@ -464,22 +502,6 @@ function displayOptimizedPointData(data, icao, name) {
         // );
         embed_vega_spec(
             build_vega_spec(
-                '24hr Max. Temperature UTC (' + tempscale + ')',
-                { 'values': max_temperature_utc_day },
-                (CUSTOM_THRESHOLDS ? max_temp_thresholds : NO_COLOR_THRESHOLDS)
-            ),
-            '#op_max_temp_utc'
-        );
-        embed_vega_spec(
-            build_vega_spec(
-                '24hr Min. Temperature UTC (' + tempscale + ')',
-                { 'values': min_temperature_utc_day },
-                (CUSTOM_THRESHOLDS ? min_temp_thresholds : NO_COLOR_THRESHOLDS)
-            ),
-            '#op_min_temp_utc'
-        );
-        embed_vega_spec(
-            build_vega_spec(
                 '1hr Precipitation Amount (' + precipunits + ')',
                 { 'values': precipitation_amount_1hr },
                 NO_COLOR_THRESHOLDS,
@@ -501,24 +523,6 @@ function displayOptimizedPointData(data, icao, name) {
                 (CUSTOM_THRESHOLDS ? precip_6hr_thresholds : NO_COLOR_THRESHOLDS),
             ),
             '#op_precip_amt_6'
-        );
-        embed_vega_spec(
-            build_vega_spec(
-                '24hr Max. Temperature Local Time (' + tempscale + ')',
-                { 'values': max_temperature_local_day },
-                (CUSTOM_THRESHOLDS ? max_temp_thresholds : NO_COLOR_THRESHOLDS),
-                'Local' // specify timezone
-            ),
-            '#op_max_temp_local'
-        );
-        embed_vega_spec(
-            build_vega_spec(
-                '24hr Min. Temperature Local Time (' + tempscale + ')',
-                { 'values': min_temperature_local_day },
-                (CUSTOM_THRESHOLDS ? min_temp_thresholds : NO_COLOR_THRESHOLDS),
-                'Local' // specify timezone
-            ),
-            '#op_min_temp_local'
         );
         embed_vega_spec(
             build_vega_spec(

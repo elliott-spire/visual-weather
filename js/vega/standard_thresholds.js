@@ -1,3 +1,21 @@
+function get_data_domain_range(data, y_axis_title) {
+	var min = Number.MAX_VALUE;
+	var max = Number.MIN_VALUE;
+	for (var i=0; i < data['values'].length; i++) {
+		var val = Number(data['values'][i]['Value']);
+		if (val > max) {
+			max = val;
+		}
+		if (val < min) {
+			min = val;
+		}
+	}
+	if (max == Number.MIN_VALUE) {
+		max = 0;
+	}
+	return [min, max];
+}
+// https://vega.github.io/vega-lite-v3/examples/layer_bar_annotations.html
 function standard_thresholds(
 		minimum_thresholds, y_axis_title, data, tooltip,
 		warn_threshold_val, alert_threshold_val, big_alert_threshold_val,
@@ -7,6 +25,9 @@ function standard_thresholds(
 	if (minimum_thresholds == true) {
 		operation = "datum.Value <= ";
 	}
+	// get the min/max range of data values to set the Y-axis
+	// var y_domain = get_data_domain_range(data, y_axis_title);
+	// console.log(y_axis_title, y_domain);
 	return {
 		    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
 			"title": {
@@ -33,8 +54,13 @@ function standard_thresholds(
 		                            }
 		                        },
 		                        "y": {
-		                            "field": "Value",
-		                            "type": "quantitative"
+									"field": "Value",
+									"type": "quantitative",
+									// "scale": {
+									// 	// "domain": y_domain,
+									// 	// "range": y_domain,
+									// 	// "nice": false
+									// }
 		                        },
 		                        "color": {
 		                            "value": color_ok
@@ -64,10 +90,6 @@ function standard_thresholds(
 		                            "field": "Value",
 		                            "type": "quantitative"
 		                        },
-		                        // "y2": {
-		                        //     "field": "Value",
-		                        //     "type": "quantitative"
-		                        // },
 		                        "color": {
 		                            "value": color_warn
 		                        },
@@ -96,10 +118,6 @@ function standard_thresholds(
 		                            "field": "Value",
 		                            "type": "quantitative"
 		                        },
-		                        // "y2": {
-		                        //     "field": "Value",
-		                        //     "type": "quantitative"
-		                        // },
 		                        "color": {
 		                            "value": color_alert
 		                        },
@@ -128,10 +146,6 @@ function standard_thresholds(
 		                            "field": "Value",
 		                            "type": "quantitative"
 		                        },
-		                        // "y2": {
-		                        //     "field": "Value",
-		                        //     "type": "quantitative"
-		                        // },
 		                        "color": {
 		                            "value": color_big_alert
 		                        },

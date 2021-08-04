@@ -16,6 +16,11 @@ var fx_visibility_thresholds = {
 	'c1': 2.0,              // 3500 ft
 	'minimum_thresholds': true
 }
+var fx_rel_hum_thresholds = {
+	'c3': 94, // %     // red >94%
+	'c2': 90,          // orange for 90-94%
+	'c1': 85,          // yellow for 85-89%
+}
 var fx_cloud_ceiling_thresholds = {
 	// 0-100 ft – Red
 	// 100-200 ft – Red
