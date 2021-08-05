@@ -362,7 +362,10 @@ function displayOptimizedPointData(data, icao, name) {
                 var data = ceiling[i];
                 var row = document.createElement('tr');
                 var value = data['Value'];
-                var color = ceiling_thresholds[value];
+                var color = '';
+                if (CUSTOM_THRESHOLDS) {
+                    ceiling_thresholds[value];
+                }
                 var t = document.createElement('td');
                 t.className = color;
                 var v = document.createElement('td');
