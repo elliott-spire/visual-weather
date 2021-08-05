@@ -324,10 +324,17 @@ function displayOptimizedPointData(data, icao, name) {
         var visibility_thresholds = fx_visibility_thresholds;
         var rel_hum_thresholds = fx_rel_hum_thresholds;
         var ceiling_thresholds = fx_cloud_ceiling_thresholds;
-        var precip_3hr_thresholds = thresholds['precipitation_amount_3hr'];
-        var precip_6hr_thresholds = thresholds['precipitation_amount_6hr'];
-        var max_temp_thresholds = thresholds['max_temp'];
-        var min_temp_thresholds = thresholds['min_temp'];
+        // not all sites have custom thresholds
+        var precip_3hr_thresholds = NO_COLOR_THRESHOLDS;
+        var precip_6hr_thresholds = NO_COLOR_THRESHOLDS;
+        var max_temp_thresholds = NO_COLOR_THRESHOLDS;
+        var min_temp_thresholds = NO_COLOR_THRESHOLDS;
+        if (thresholds['max_temp']) {
+            precip_3hr_thresholds = thresholds['precipitation_amount_3hr'];
+            precip_6hr_thresholds = thresholds['precipitation_amount_6hr'];
+            max_temp_thresholds = thresholds['max_temp'];
+            min_temp_thresholds = thresholds['min_temp'];
+        }
     }
 
     ////////////////////////////////////////////////
