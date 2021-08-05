@@ -23,9 +23,10 @@
 
 // make an Optimized Point Forecast API request
 // and generate UI graphs from the response data
-function getOptimizedPointForecast(icao) {
+function getOptimizedPointForecast(icao, time_bundle) {
     // build the route for the API call using the `lat` and `lon` URL parameters
     var uri = 'https://api.wx.spire.com/forecast/point/optimized?location=' + icao;
+    uri += '&time_bundle=' + time_bundle;
     // print the full API request to the JS console
     console.log('Spire Weather API: GET', uri);
     // build the HTTP header for Authorization

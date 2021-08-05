@@ -3,8 +3,6 @@ function displayOptimizedPointData(data, icao, name) {
     // clearAllGraphs();
     // change the display text for the weather graphs popup
     // document.getElementById('forecast_point_label').innerHTML = name + ' (' + icao + ')';
-    // hide day/week toggle
-    document.getElementById('toggle_forecast').style.display = 'none';
     // initialize arrays to store output data:
     var ceiling = [];
     var visibility = [];
@@ -430,7 +428,7 @@ function displayOptimizedPointData(data, icao, name) {
         );
         embed_vega_spec(
             build_vega_spec(
-                'Wind Directon (degrees)',
+                'Wind Direction (degrees)',
                 { 'values': wind_direction },
                 NO_COLOR_THRESHOLDS,
             ),
@@ -598,6 +596,9 @@ function displayOptimizedPointData(data, icao, name) {
         );
     }
 
+    // reset cursor from spinning wheel to default
+    document.getElementById('forecast_switch').style.cursor = 'pointer';
+    document.body.style.cursor = 'default';
     // make download button visible
     // document.getElementById('download_forecast').style.display = 'block';
 }

@@ -25,9 +25,20 @@ function standard_thresholds(
 	if (minimum_thresholds == true) {
 		operation = "datum.Value <= ";
 	}
-	// get the min/max range of data values to set the Y-axis
-	// var y_domain = get_data_domain_range(data, y_axis_title);
-	// console.log(y_axis_title, y_domain);
+	// customize the Y-axis scale
+	var scale = {};
+	if (y_axis_title.indexOf("Wind Direction") > -1) {
+		scale = {
+			"domain": [0, 360],
+			"nice": false,
+		}
+	} else if (y_axis_title.indexOf("Air Pressure") > -1) {
+		// get the min/max range of data values to set the Y-axis
+		scale = {
+			"domain": get_data_domain_range(data),
+			// "range": ???
+		}
+	}
 	return {
 		    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
 			"title": {
@@ -56,11 +67,7 @@ function standard_thresholds(
 		                        "y": {
 									"field": "Value",
 									"type": "quantitative",
-									// "scale": {
-									// 	// "domain": y_domain,
-									// 	// "range": y_domain,
-									// 	// "nice": false
-									// }
+									"scale": scale
 		                        },
 		                        "color": {
 		                            "value": color_ok

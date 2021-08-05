@@ -3,16 +3,29 @@ function switchChange(evt, elem) {
 	if (elem == null) {
 		elem = evt.target;
 	}
+	// get the current URL parameters
+	var urlParams = new URLSearchParams(window.location.search);
+	// check if ICAO is included in URL
+	var icao = urlParams.get('icao');
+	// change cursor to indicate something is happening
 	elem.style.cursor = 'progress';
 	document.body.style.cursor = 'progress';
 	if (elem.checked) {
 		document.getElementById('day').className = 'selected';
 		document.getElementById('week').className = '';
-		getPointForecast('short_range_high_freq');
+		if (icao) {
+			getOptimizedPointForecast(icao, 'short_range_high_freq');
+		} else {
+			getPointForecast('short_range_high_freq');
+		}
 	} else {
 		document.getElementById('day').className = '';
 		document.getElementById('week').className = 'selected';
-		getPointForecast('medium_range_std_freq');
+		if (icao) {
+			getOptimizedPointForecast(icao, 'medium_range_std_freq');
+		} else {
+			getPointForecast('medium_range_std_freq');
+		}
 	}
 }
 
