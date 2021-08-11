@@ -52,6 +52,14 @@ function parse_precipitation(data, units) {
     return data.toFixed(2);
 }
 
+function parse_snowfall(data, units) {
+    if (units == 'imperial') {
+        // convert from centimeters to inches
+        data = data / (2.54);
+    }
+    return data.toFixed(2);
+}
+
 function parse_cloud_ceiling(data, units) {
     if (data == 'none') {
         return data;

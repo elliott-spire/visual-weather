@@ -30,6 +30,7 @@ function getPointForecast(time_bundle) {
     url += '&time_bundle=' + time_bundle;
     // specify the weather bundles
     var CUSTOM = false;
+    var FX = false;
     var bundles = urlParams.get('bundles');
     if (bundles == null) {
         bundles = 'basic';
@@ -38,12 +39,16 @@ function getPointForecast(time_bundle) {
         bundles = 'basic,renewable-energy';
         // get experimental air column wind value
         getAirColumnForecast(time_bundle, lat, lon);
+    } else if (bundles == 'fx') {
+        FX = true;
+        bundles = 'basic,precipitation';
     }
     url += '&bundles=' + bundles;
     // set boolean flags indicating which bundles are specified
     var BASIC = bundles.indexOf('basic') != -1;
     var MARITIME = bundles.indexOf('maritime') != -1;
     var RENEWABLE = bundles.indexOf('renewable-energy') != -1;
+    var PRECIPITATION = bundles.indexOf('precipitation') != -1;
 
     console.log('Spire Weather API: GET', url);
     fetch(url, {headers:{'spire-api-key':urlParams.get('token')}})
@@ -63,12 +68,14 @@ function getPointForecast(time_bundle) {
             }
 
             var precipunits;
+            var snowunits;
             var distanceunits;
             var speedunits;
             var unitsystem = urlParams.get('units');
             if (unitsystem != null && unitsystem.toLowerCase() == 'imperial') {
                 unitsystem = 'imperial';
                 precipunits = 'in';
+                snowunits = 'in';
                 distanceunits = 'ft';
                 speedunits = 'knots';
                 // specify Fahrenheit here as well
@@ -77,6 +84,7 @@ function getPointForecast(time_bundle) {
             } else {
                 unitsystem = 'metric';
                 precipunits = 'mm';
+                snowunits = 'cm';
                 distanceunits = 'm';
                 speedunits = 'm/s';
             }
@@ -92,6 +100,8 @@ function getPointForecast(time_bundle) {
             var air_press_sea_level_vals = [];
             var precip_vals = [];
             var wind_gust_vals = [];
+            // precipitation
+            var snowfall_amount_vals = [];
             // maritime
             var sea_surface_temp_vals = [];
             var wave_height_vals = [];
@@ -159,6 +169,16 @@ function getPointForecast(time_bundle) {
                         'Time': valid_time_vega_format,
                         'Value': parse_precipitation(
                             parse_accumulated_value(data, 'precipitation_amount', i),
+                            unitsystem
+                        )
+                    });
+                }
+
+                if (PRECIPITATION) {
+                    snowfall_amount_vals.push({
+                        'Time': valid_time_vega_format,
+                        'Value': parse_snowfall(
+                            parse_accumulated_value(data, 'snowfall_amount', i),
                             unitsystem
                         )
                     });
@@ -264,7 +284,7 @@ function getPointForecast(time_bundle) {
             ////////////////////////////////////////////////
             var color_scheme = urlParams.get('color_scheme');
 
-            if (BASIC && !CUSTOM) {
+            if (BASIC && !CUSTOM && !FX) {
                 embed_vega_spec(
                     build_vega_spec(
                         'Air Temperature (' + tempscale + ')',
@@ -371,7 +391,23 @@ function getPointForecast(time_bundle) {
                 );
             }
 
-            if (MARITIME && !CUSTOM) {
+            if (PRECIPITATION && !CUSTOM && !FX) {
+                embed_vega_spec(
+                    build_vega_spec(
+                        'Snowfall Amount (' + snowunits + ')',
+                        { 'values': snowfall_amount_vals },
+                        {
+                            'c1': null, // warn threshold value
+                            'c2': null, // alert threshold value
+                            'c3': null  // big alert threshold value
+                        },
+                        color_scheme
+                    ),
+                    '#snowfall_amount'
+                );
+            }
+
+            if (MARITIME && !CUSTOM && !FX) {
                 embed_vega_spec(
                     build_vega_spec(
                         'Sea Surface Temperature (' + tempscale + ')',
@@ -452,7 +488,7 @@ function getPointForecast(time_bundle) {
                 // );
             }
 
-            if (RENEWABLE && !CUSTOM) {
+            if (RENEWABLE && !CUSTOM && !FX) {
                 if (!BASIC) {
                     // the basic bundle already includes this variable
                     // so don't show it twice if `basic` is specified too
@@ -560,6 +596,32 @@ function getPointForecast(time_bundle) {
                         color_scheme
                     ),
                     '#surface_net_downward_shortwave_flux'
+                );
+            }
+
+            if (FX) {
+                embed_vega_spec(
+                    build_vega_spec(
+                        (unitsystem == 'metric' ? '10m Wind Gust' : '30ft Wind Gust') + ' (' + speedunits + ')',
+                        { 'values': wind_gust_vals },
+                        fx_wind_speed_thresholds,
+                        color_scheme
+                    ),
+                    '#wind_gust'
+                );
+
+                embed_vega_spec(
+                    build_vega_spec(
+                        'Snowfall Amount (' + snowunits + ')',
+                        { 'values': snowfall_amount_vals },
+                        {
+                            'c1': null, // warn threshold value
+                            'c2': null, // alert threshold value
+                            'c3': null  // big alert threshold value
+                        },
+                        color_scheme
+                    ),
+                    '#snowfall_amount'
                 );
             }
 
