@@ -33,10 +33,14 @@ function standard_thresholds(
 			"nice": false,
 		}
 	} else if (y_axis_title.indexOf("Air Pressure") > -1) {
-		// get the min/max range of data values to set the Y-axis
-		scale = {
-			"domain": get_data_domain_range(data),
-			// "range": ???
+		// tristero only
+		if (urlParams.get('version') == 'fx') {
+			// get the min/max range of data values to set the Y-axis
+			scale = {
+				"domain": [28, 32]
+				// "domain": get_data_domain_range(data),
+				// "range": ???
+			}
 		}
 	}
 	return {

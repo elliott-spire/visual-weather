@@ -29,13 +29,14 @@ canvas {
 #week {
 	position: absolute;
 	top: 30px;
-	right: 40px;
-	font-size: 80%;
+	right: 25px;
+	font-size: 85%;
 	color: #D3D3D3;
 	opacity: 0.4;
 }
 #week {
-	margin-right: 101px;
+    margin-right: 110px;
+    white-space: nowrap;
 }
 #day.selected,
 #week.selected {

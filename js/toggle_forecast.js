@@ -14,17 +14,17 @@ function switchChange(evt, elem) {
 		document.getElementById('day').className = 'selected';
 		document.getElementById('week').className = '';
 		if (icao) {
-			getOptimizedPointForecast(icao, 'short_range_high_freq');
+			getOptimizedPointForecast(icao, 'hourly');
 		} else {
-			getPointForecast('short_range_high_freq');
+			getPointForecast('hourly');
 		}
 	} else {
 		document.getElementById('day').className = '';
 		document.getElementById('week').className = 'selected';
 		if (icao) {
-			getOptimizedPointForecast(icao, 'medium_range_std_freq');
+			getOptimizedPointForecast(icao, '6_hourly_extended');
 		} else {
-			getPointForecast('medium_range_std_freq');
+			getPointForecast('6_hourly_extended');
 		}
 	}
 }

@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	// check if ICAO is included in URL
 	var icao = urlParams.get('icao');
 	if (icao) {
-		getOptimizedPointForecast(icao,'medium_range_std_freq');
+		getOptimizedPointForecast(icao,'6_hourly_extended');
 	} else {
-		getPointForecast('medium_range_std_freq');
+		getPointForecast('6_hourly_extended');
 	}
 })
