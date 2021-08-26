@@ -382,7 +382,7 @@ function displayOptimizedPointData(data, icao, name) {
             ceiling_div.appendChild(table);
             ceiling_div.style.display = 'block';
         }
-        // hide 24hr values for silent tristero
+        // hide some fields for silent tristero
         if (urlParams.get('version') != 'fx') {
             embed_vega_spec(
                 build_vega_spec(
@@ -417,6 +417,22 @@ function displayOptimizedPointData(data, icao, name) {
                     'Local' // specify timezone
                 ),
                 '#op_min_temp_local'
+            );
+            embed_vega_spec(
+                build_vega_spec(
+                    '24hr Probability of Precipitation (%)',
+                    { 'values': probability_of_precipitation_24hr },
+                    NO_COLOR_THRESHOLDS,
+                ),
+                '#op_prob_precip_24'
+            );
+            embed_vega_spec(
+                build_vega_spec(
+                    'Surface Air Pressure (' + pressureunits + ')',
+                    { 'values': surface_air_pressure },
+                    NO_COLOR_THRESHOLDS,
+                ),
+                '#op_surface_air_press'
             );
         }
         // add the other data variable graphs to the DOM
@@ -475,14 +491,6 @@ function displayOptimizedPointData(data, icao, name) {
                 NO_COLOR_THRESHOLDS,
             ),
             '#op_prob_fog'
-        );
-        embed_vega_spec(
-            build_vega_spec(
-                'Surface Air Pressure (' + pressureunits + ')',
-                { 'values': surface_air_pressure },
-                NO_COLOR_THRESHOLDS,
-            ),
-            '#op_surface_air_press'
         );
         embed_vega_spec(
             build_vega_spec(
@@ -595,14 +603,6 @@ function displayOptimizedPointData(data, icao, name) {
                 NO_COLOR_THRESHOLDS,
             ),
             '#op_prob_precip_6'
-        );
-        embed_vega_spec(
-            build_vega_spec(
-                '24hr Probability of Precipitation (%)',
-                { 'values': probability_of_precipitation_24hr },
-                NO_COLOR_THRESHOLDS,
-            ),
-            '#op_prob_precip_24'
         );
     }
 

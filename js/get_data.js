@@ -102,6 +102,7 @@ function getPointForecast(time_bundle) {
             var wind_gust_vals = [];
             // precipitation
             var snowfall_amount_vals = [];
+            var snowfall_amount_accum_vals = [];
             // maritime
             var sea_surface_temp_vals = [];
             var wave_height_vals = [];
@@ -179,6 +180,13 @@ function getPointForecast(time_bundle) {
                         'Time': valid_time_vega_format,
                         'Value': parse_snowfall(
                             parse_accumulated_value(data, 'snowfall_amount', i),
+                            unitsystem
+                        )
+                    });
+                    snowfall_amount_accum_vals.push({
+                        'Time': valid_time_vega_format,
+                        'Value': parse_snowfall(
+                            data[i].values.snowfall_amount,
                             unitsystem
                         )
                     });
@@ -405,6 +413,19 @@ function getPointForecast(time_bundle) {
                     ),
                     '#snowfall_amount'
                 );
+                embed_vega_spec(
+                    build_vega_spec(
+                        'Accumulated Snowfall Amount (' + snowunits + ')',
+                        { 'values': snowfall_amount_accum_vals },
+                        {
+                            'c1': null, // warn threshold value
+                            'c2': null, // alert threshold value
+                            'c3': null  // big alert threshold value
+                        },
+                        color_scheme
+                    ),
+                    '#snowfall_amount_accum'
+                );
             }
 
             if (MARITIME && !CUSTOM && !FX) {
@@ -609,7 +630,6 @@ function getPointForecast(time_bundle) {
                     ),
                     '#wind_gust'
                 );
-
                 embed_vega_spec(
                     build_vega_spec(
                         'Snowfall Amount (' + snowunits + ')',
@@ -622,6 +642,19 @@ function getPointForecast(time_bundle) {
                         color_scheme
                     ),
                     '#snowfall_amount'
+                );
+                embed_vega_spec(
+                    build_vega_spec(
+                        'Accumulated Snowfall Amount (' + snowunits + ')',
+                        { 'values': snowfall_amount_accum_vals },
+                        {
+                            'c1': null, // warn threshold value
+                            'c2': null, // alert threshold value
+                            'c3': null  // big alert threshold value
+                        },
+                        color_scheme
+                    ),
+                    '#snowfall_amount_accum'
                 );
             }
 
