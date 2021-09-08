@@ -21,6 +21,11 @@ var fx_rel_hum_thresholds = {
 	'c2': 90,          // orange for 90-94%
 	'c1': 85,          // yellow for 85-89%
 }
+var fx_snow_thresholds = {
+	'c3': 1, // inch   // Heavy Snow: > 1"/hr
+	'c2': (1/3),         // Moderate Snow: >1/3"/hr up to 1"/hr
+	'c1': (1/10),        // Light Snow: >1/10" up to 1/3"
+}
 var fx_cloud_ceiling_thresholds = {
 	// 0-100 ft – Red
 	// 100-200 ft – Red

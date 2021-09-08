@@ -634,11 +634,7 @@ function getPointForecast(time_bundle) {
                     build_vega_spec(
                         'Snowfall Amount (' + snowunits + ')',
                         { 'values': snowfall_amount_vals },
-                        {
-                            'c1': null, // warn threshold value
-                            'c2': null, // alert threshold value
-                            'c3': null  // big alert threshold value
-                        },
+                        fx_snow_thresholds,
                         color_scheme
                     ),
                     '#snowfall_amount'
