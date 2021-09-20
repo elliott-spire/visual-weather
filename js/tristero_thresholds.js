@@ -2,7 +2,36 @@ var c3 = 'red'; 	// "Warning"
 var c2 = 'orange';	// "Alert"
 var c1 = 'yellow';	// "Min"
 /////////////////////
-var fx_airports = ["KOAK", "KMEM","KIND","KEWR","KGSO","PANC","KAFW","LFPG","EDDK","OMDB","ZGGG","ZSPD","RJBB"];
+var fx_airports = [
+	"KMEM",
+	"KIND",
+	"KEWR",
+	"KGSO",
+	"PANC",
+	"KAFW",
+	"LFPG",
+	"EDDK",
+	"OMDB",
+	"ZGGG",
+	"ZSPD",
+	"RJBB",
+	"RJAA",
+	"RCTP",
+	"CYYC",
+	"CYYZ",
+	"CYMX",
+	"KSDF",
+	"KPIT",
+	"KCLT",
+	"KATL",
+	"KDEN",
+	"KMSP",
+	"KMIA",
+	"KPHL",
+	"KORD",
+	"KLAX",
+	"KBOS"
+];
 //////////////////
 // shared thresholds
 var fx_wind_speed_thresholds = {
