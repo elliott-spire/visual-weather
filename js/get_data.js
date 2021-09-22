@@ -59,6 +59,10 @@ function getPointForecast(time_bundle) {
             // console.log(response);
 
             var data = response.data;
+            var issuance_time = data[0]['times']['issuance_time'];
+            // strip seconds and timezone
+            issuance_time = issuance_time.split(':00+')[0].replace('T',' ') + ' UTC';
+            document.getElementById("forecast_issuance_time").innerHTML = 'Forecast Issuance: ' + issuance_time;
 
             var tempscale = urlParams.get('tempscale');
             if (tempscale == null) {

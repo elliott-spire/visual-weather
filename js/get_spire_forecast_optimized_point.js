@@ -68,9 +68,13 @@ function getOptimizedPointForecast(icao, time_bundle) {
             var airport_name = display_data[0]['location']['name'];
             var lat = display_data[0]['location']['coordinates']['lat'];
             var lon = display_data[0]['location']['coordinates']['lon'];
+            var issuance_time = display_data[0]['times']['issuance_time'];
+            // strip seconds and timezone
+            issuance_time = issuance_time.split(':00+')[0].replace('T',' ') + ' UTC';
             // display in the UI
-            document.getElementById("forecast_point_coords").innerHTML = 'Latitude: ' + lat + '<br>Longitude: ' + lon;
             document.getElementById("forecast_loc_name").innerHTML = airport_name + ' (' + icao + ')';
+            document.getElementById("forecast_point_coords").innerHTML = 'Latitude: ' + lat + '<br>Longitude: ' + lon;
+            document.getElementById("forecast_issuance_time").innerHTML = 'Forecast Issuance: ' + issuance_time;
             // show the forecast data in popup graphs
             displayOptimizedPointData(display_data, airport_feature_id, airport_name);
             // reset forecast toggle button to not be active
