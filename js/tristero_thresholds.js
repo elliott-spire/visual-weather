@@ -75,12 +75,6 @@ var fx_cloud_ceiling_thresholds = {
 var fx_thresholds = {
 	'KOAK': {},
 	'KMEM': {
-		'ceiling': {
-			'c3': 300,
-			'c2': 800,
-			'c1': 1500,
-			'minimum_thresholds': true
-		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 2,
 			'c2': 1,
@@ -104,12 +98,6 @@ var fx_thresholds = {
 		}
 	},
 	'KIND': {
-		'ceiling': {
-			'c3': 200,
-			'c2': 500,
-			'c1': 1000,
-			'minimum_thresholds': true
-		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 2,
 			'c2': 1,
@@ -133,12 +121,6 @@ var fx_thresholds = {
 		}
 	},
 	'KEWR': {
-		'ceiling': {
-			'c3': 200,
-			'c2': 500,
-			'c1': 1000,
-			'minimum_thresholds': true
-		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 2,
 			'c2': 1,
@@ -162,12 +144,6 @@ var fx_thresholds = {
 		}
 	},
 	'KGSO': {
-		'ceiling': {
-			'c3': 200,
-			'c2': 500,
-			'c1': 1000,
-			'minimum_thresholds': true
-		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 2,
 			'c2': 1,
@@ -191,12 +167,6 @@ var fx_thresholds = {
 		}
 	},
 	'PANC': {
-		'ceiling': {
-			'c3': 200,
-			'c2': 500,
-			'c1': 1000,
-			'minimum_thresholds': true
-		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 1,
 			'c2': 0.5,
@@ -220,12 +190,6 @@ var fx_thresholds = {
 		}
 	},
 	'KAFW': {
-		'ceiling': {
-			'c3': 200,
-			'c2': 500,
-			'c1': 1000,
-			'minimum_thresholds': true
-		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 2,
 			'c2': 1,
@@ -249,12 +213,6 @@ var fx_thresholds = {
 		}
 	},
 	'LFPG': {
-		'ceiling': {
-			'c3': 200,
-			'c2': 500,
-			'c1': 1000,
-			'minimum_thresholds': true
-		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 1,
 			'c2': 0.5,
@@ -278,12 +236,6 @@ var fx_thresholds = {
 		}
 	},
 	'EDDK': {
-		'ceiling': {
-			'c3': 200,
-			'c2': 500,
-			'c1': 1000,
-			'minimum_thresholds': true
-		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 1,
 			'c2': 0.5,
@@ -307,12 +259,6 @@ var fx_thresholds = {
 		}
 	},
 	'OMDB': {
-		'ceiling': {
-			'c3': 200,
-			'c2': 500,
-			'c1': 1000,
-			'minimum_thresholds': true
-		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 1,
 			'c2': 0.5,
@@ -336,12 +282,6 @@ var fx_thresholds = {
 		}
 	},
 	'ZGGG': {
-		'ceiling': {
-			'c3': 200,
-			'c2': 500,
-			'c1': 1000,
-			'minimum_thresholds': true
-		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 2,
 			'c2': 1,
@@ -365,12 +305,6 @@ var fx_thresholds = {
 		}
 	},
 	'ZSPD': {
-		'ceiling': {
-			'c3': 200,
-			'c2': 500,
-			'c1': 1000,
-			'minimum_thresholds': true
-		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 2,
 			'c2': 1,
@@ -394,12 +328,6 @@ var fx_thresholds = {
 		}
 	},
 	'RJBB': {
-		'ceiling': {
-			'c3': 200,
-			'c2': 500,
-			'c1': 1000,
-			'minimum_thresholds': true
-		},
 		'precipitation_amount_3hr': { // inches
 			'c3': 2,
 			'c2': 1,
@@ -419,6 +347,374 @@ var fx_thresholds = {
 			'c3': 20,
 			'c2': 25,
 			'c1': 30,
+			'minimum_thresholds': true
+		}
+	},
+	'RJAA': {
+		'precipitation_amount_3hr': { // inches
+			'c3': 2,
+			'c2': 1,
+			'c1': 0.5
+		},
+		'precipitation_amount_6hr': { // inches
+			'c3': 3,
+			'c2': 2,
+			'c1': 1
+		},
+		'max_temp': { // fahrenheit
+			'c3': 105,
+			'c2': 100,
+			'c1': 95
+		},
+		'min_temp': { // fahrenheit
+			'c3': 20,
+			'c2': 25,
+			'c1': 30,
+			'minimum_thresholds': true
+		}
+	},
+	'RCTP': {
+		'precipitation_amount_3hr': { // inches
+			'c3': 2,
+			'c2': 1,
+			'c1': 0.5
+		},
+		'precipitation_amount_6hr': { // inches
+			'c3': 3,
+			'c2': 2,
+			'c1': 1
+		},
+		'max_temp': { // fahrenheit
+			'c3': 105,
+			'c2': 100,
+			'c1': 95
+		},
+		'min_temp': { // fahrenheit
+			'c3': 40,
+			'c2': 45,
+			'c1': 50,
+			'minimum_thresholds': true
+		}
+	},
+	'CYYC': {
+		'precipitation_amount_3hr': { // inches
+			'c3': 2,
+			'c2': 1,
+			'c1': 0.5
+		},
+		'precipitation_amount_6hr': { // inches
+			'c3': 3,
+			'c2': 2,
+			'c1': 1
+		},
+		'max_temp': { // fahrenheit
+			'c3': 100,
+			'c2': 95,
+			'c1': 90
+		},
+		'min_temp': { // fahrenheit
+			'c3': -10,
+			'c2': -5,
+			'c1': 0,
+			'minimum_thresholds': true
+		}
+	},
+	'CYYZ': {
+		'precipitation_amount_3hr': { // inches
+			'c3': 2,
+			'c2': 1,
+			'c1': 0.5
+		},
+		'precipitation_amount_6hr': { // inches
+			'c3': 3,
+			'c2': 2,
+			'c1': 1
+		},
+		'max_temp': { // fahrenheit
+			'c3': 100,
+			'c2': 95,
+			'c1': 90
+		},
+		'min_temp': { // fahrenheit
+			'c3': -10,
+			'c2': -5,
+			'c1': 0,
+			'minimum_thresholds': true
+		}
+	},
+	'CYMX': {
+		'precipitation_amount_3hr': { // inches
+			'c3': 2,
+			'c2': 1,
+			'c1': 0.5
+		},
+		'precipitation_amount_6hr': { // inches
+			'c3': 3,
+			'c2': 2,
+			'c1': 1
+		},
+		'max_temp': { // fahrenheit
+			'c3': 100,
+			'c2': 95,
+			'c1': 90
+		},
+		'min_temp': { // fahrenheit
+			'c3': -10,
+			'c2': -5,
+			'c1': 0,
+			'minimum_thresholds': true
+		}
+	},
+	'KDEN': {
+		'precipitation_amount_3hr': { // inches
+			'c3': 2,
+			'c2': 1,
+			'c1': 0.5
+		},
+		'precipitation_amount_6hr': { // inches
+			'c3': 3,
+			'c2': 2,
+			'c1': 1
+		},
+		'max_temp': { // fahrenheit
+			'c3': 100,
+			'c2': 95,
+			'c1': 90
+		},
+		'min_temp': { // fahrenheit
+			'c3': -10,
+			'c2': -5,
+			'c1': 0,
+			'minimum_thresholds': true
+		}
+	},
+	'KSDF': {
+		'precipitation_amount_3hr': { // inches
+			'c3': 2,
+			'c2': 1,
+			'c1': 0.5
+		},
+		'precipitation_amount_6hr': { // inches
+			'c3': 3,
+			'c2': 2,
+			'c1': 1
+		},
+		'max_temp': { // fahrenheit
+			'c3': 110,
+			'c2': 105,
+			'c1': 100
+		},
+		'min_temp': { // fahrenheit
+			'c3': 15,
+			'c2': 20,
+			'c1': 25,
+			'minimum_thresholds': true
+		}
+	},
+	'KCLT': {
+		'precipitation_amount_3hr': { // inches
+			'c3': 2,
+			'c2': 1,
+			'c1': 0.5
+		},
+		'precipitation_amount_6hr': { // inches
+			'c3': 3,
+			'c2': 2,
+			'c1': 1
+		},
+		'max_temp': { // fahrenheit
+			'c3': 110,
+			'c2': 105,
+			'c1': 100
+		},
+		'min_temp': { // fahrenheit
+			'c3': 15,
+			'c2': 20,
+			'c1': 25,
+			'minimum_thresholds': true
+		}
+	},
+	'KATL': {
+		'precipitation_amount_3hr': { // inches
+			'c3': 2,
+			'c2': 1,
+			'c1': 0.5
+		},
+		'precipitation_amount_6hr': { // inches
+			'c3': 3,
+			'c2': 2,
+			'c1': 1
+		},
+		'max_temp': { // fahrenheit
+			'c3': 110,
+			'c2': 105,
+			'c1': 100
+		},
+		'min_temp': { // fahrenheit
+			'c3': 15,
+			'c2': 20,
+			'c1': 25,
+			'minimum_thresholds': true
+		}
+	},
+	'KPIT': {
+		'precipitation_amount_3hr': { // inches
+			'c3': 2,
+			'c2': 1,
+			'c1': 0.5
+		},
+		'precipitation_amount_6hr': { // inches
+			'c3': 3,
+			'c2': 2,
+			'c1': 1
+		},
+		'max_temp': { // fahrenheit
+			'c3': 105,
+			'c2': 100,
+			'c1': 95
+		},
+		'min_temp': { // fahrenheit
+			'c3': 5,
+			'c2': 10,
+			'c1': 15,
+			'minimum_thresholds': true
+		}
+	},
+	'KPHL': {
+		'precipitation_amount_3hr': { // inches
+			'c3': 2,
+			'c2': 1,
+			'c1': 0.5
+		},
+		'precipitation_amount_6hr': { // inches
+			'c3': 3,
+			'c2': 2,
+			'c1': 1
+		},
+		'max_temp': { // fahrenheit
+			'c3': 105,
+			'c2': 100,
+			'c1': 95
+		},
+		'min_temp': { // fahrenheit
+			'c3': 10,
+			'c2': 15,
+			'c1': 20,
+			'minimum_thresholds': true
+		}
+	},
+	'KBOS': {
+		'precipitation_amount_3hr': { // inches
+			'c3': 2,
+			'c2': 1,
+			'c1': 0.5
+		},
+		'precipitation_amount_6hr': { // inches
+			'c3': 3,
+			'c2': 2,
+			'c1': 1
+		},
+		'max_temp': { // fahrenheit
+			'c3': 105,
+			'c2': 100,
+			'c1': 95
+		},
+		'min_temp': { // fahrenheit
+			'c3': 10,
+			'c2': 15,
+			'c1': 20,
+			'minimum_thresholds': true
+		}
+	},
+	'KMSP': {
+		'precipitation_amount_3hr': { // inches
+			'c3': 2,
+			'c2': 1,
+			'c1': 0.5
+		},
+		'precipitation_amount_6hr': { // inches
+			'c3': 3,
+			'c2': 2,
+			'c1': 1
+		},
+		'max_temp': { // fahrenheit
+			'c3': 100,
+			'c2': 95,
+			'c1': 90
+		},
+		'min_temp': { // fahrenheit
+			'c3': -20,
+			'c2': -15,
+			'c1': -10,
+			'minimum_thresholds': true
+		}
+	},
+	'KORD': {
+		'precipitation_amount_3hr': { // inches
+			'c3': 2,
+			'c2': 1,
+			'c1': 0.5
+		},
+		'precipitation_amount_6hr': { // inches
+			'c3': 3,
+			'c2': 2,
+			'c1': 1
+		},
+		'max_temp': { // fahrenheit
+			'c3': 100,
+			'c2': 95,
+			'c1': 90
+		},
+		'min_temp': { // fahrenheit
+			'c3': -10,
+			'c2': -5,
+			'c1': 0,
+			'minimum_thresholds': true
+		}
+	},
+	'KMIA': {
+		'precipitation_amount_3hr': { // inches
+			'c3': 1.5,
+			'c2': 1.25,
+			'c1': 0.75
+		},
+		'precipitation_amount_6hr': { // inches
+			'c3': 2.0,
+			'c2': 1.5,
+			'c1': 1.25
+		},
+		'max_temp': { // fahrenheit
+			'c3': 95,
+			'c2': 90,
+			'c1': 85
+		},
+		'min_temp': { // fahrenheit
+			'c3': 40,
+			'c2': 45,
+			'c1': 50,
+			'minimum_thresholds': true
+		}
+	},
+	'KLAX': {
+		'precipitation_amount_3hr': { // inches
+			'c3': 1.0,
+			'c2': 0.5,
+			'c1': 0.25
+		},
+		'precipitation_amount_6hr': { // inches
+			'c3': 2.0,
+			'c2': 1.0,
+			'c1': 0.5
+		},
+		'max_temp': { // fahrenheit
+			'c3': 95,
+			'c2': 90,
+			'c1': 85
+		},
+		'min_temp': { // fahrenheit
+			'c3': 35,
+			'c2': 40,
+			'c1': 45,
 			'minimum_thresholds': true
 		}
 	},
